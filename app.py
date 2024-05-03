@@ -14,4 +14,5 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(debug=False) # Запуск програми Flask
+    app.run(debug=False)
+    # Запуск програми Flask
