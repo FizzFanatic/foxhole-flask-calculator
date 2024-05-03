@@ -2,7 +2,7 @@ import math
 
 
 def processing_station_calculator(from_resource, amount):
-    if from_resource == "Металлолом/Биматы":
+    if from_resource == "Металобрухт/Бімати":
         if isinstance(amount, int):
             metal_consumption_one = 1 / 2 # 1 базовий матеріал = 2 металлолома
             production = round(metal_consumption_one * amount)
@@ -25,7 +25,7 @@ def processing_station_calculator(from_resource, amount):
 
         return None
 
-    elif from_resource == "Металлолом/Дизель":
+    elif from_resource == "Металобрухт/Дизель":
         if isinstance(amount, int):
             diesel_one = 1 / 10
             production = round(diesel_one * amount)
@@ -48,7 +48,7 @@ def processing_station_calculator(from_resource, amount):
 
         return None
 
-    elif from_resource == "Металлолом/ВзрывчатыеМатериалы":
+    elif from_resource == "Металобрухт/ВибуховіМатеріали":
         if isinstance(amount, int):
             diesel_one = 1 / 10
             production = round(diesel_one * amount)
@@ -71,7 +71,7 @@ def processing_station_calculator(from_resource, amount):
 
         return None
 
-    elif from_resource == "Компоненты/Рафинированные материалы":
+    elif from_resource == "Компоненти/Рафіновані матеріали":
         if isinstance(amount, int):
             diesel_one = 1 / 20
             production = round(diesel_one * amount)

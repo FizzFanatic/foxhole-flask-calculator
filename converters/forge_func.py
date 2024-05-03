@@ -1,5 +1,5 @@
 def calculate_conversion_forge(from_resource, amount):
-    if from_resource == "Сборочные материалы 1":
+    if from_resource == "Складальні матеріали 1":
 
         metal_per_unit = 15  # Використання металобрухту на 1 одиницю
         coking_coal_per_unit = 75  # Використання коксового вугілля на 1 одиницю
@@ -31,7 +31,7 @@ def calculate_conversion_forge(from_resource, amount):
             "name_res": "коксового вугілля"
         }
 
-    elif from_resource == "Сборочные материалы 2":
+    elif from_resource == "Складальні матеріали 2":
 
         metal_per_unit = 15  # Використання металобрухту на 1 одиницю
         coking_coal_per_unit = 50  # Використання бензину на 1 одиницю

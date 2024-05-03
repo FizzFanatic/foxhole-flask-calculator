@@ -1,7 +1,7 @@
 def calculate_conversion(from_resource, amount):
     # Розраховує конвертацію для обраного ресурсу
 
-    if from_resource == "Припасы обслуживания":
+    if from_resource == "Припаси обслуговування":
         if isinstance(amount, int):
             # Розрахунок конвертації для припасів обслуговування
 
@@ -34,7 +34,7 @@ def calculate_conversion(from_resource, amount):
 
         return None
 
-    elif from_resource == "Строительные материалы":
+    elif from_resource == "Будівельні матеріали":
         if isinstance(amount, int):
             # Розрахунок конвертації для будівельних матеріалів
 
