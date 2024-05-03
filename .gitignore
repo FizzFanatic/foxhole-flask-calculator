@@ -1,0 +1,23 @@
+
+*.pyc
+__pycache__/
+
+# Virtual Environment
+venv/
+env/
+
+# IDE
+.idea/
+*.iml
+
+# Compiled source
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Logs and databases
+*.log
+*.sql
