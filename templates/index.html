@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="Рассчитайте количество ресурсов foxhole, после обработки на станции переработки">
+      <link rel="apple-touch-icon" sizes="76x76" href="static/images/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="static/images/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="static/images/favicon-16x16.png">
+      <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+      <meta property="og:title" content="Foxhole Resource Calculator">
+      <title>Калькулятор ресурсів foxhole | Foxhole Resource Calculator | foxhole калькулятор ресурсів | Foxhole Calculator</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+      <!-- Підключаємо файл JavaScript з директорії static -->
+      <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+   </head>
+   <body>
+      <header class="fixed-header">
+         <div class="wrap-logo">
+            <a href="/" class="logo">Foxhole resource calculator</a>
+         </div>
+         <nav>
+            <div class="dropdown">
+               <button class="dropbtn">Вибрати категорію конвертації</button>
+               <div class="dropdown-content">
+                  <a href="#cement_mixer_section">Бетономішалка</a>
+                  <a href="#materials_factory_section">Фабрика матеріалів</a>
+                  <a href="#forge">Кузня</a>
+                  <a href="#processing_station_section">Станція переробки</a>
+               </div>
+            </div>
+         </nav>
+      </header>
+      <div class="container" id="cement_mixer_section">
+         <h1>Конвертація ресурсів | Бетономішалка</h1>
+         <img src="static/images/CementMixerIcon.png" alt="Game Image" class="game-image">
+         <p class="des">Бетономішалка - це транспортуєма конструкція, яка перетворює компоненти в бетонні матеріали, які можна використовувати для будівництва сильно укріплених споруд.</p>
+         <form action="" method="post">
+            <label for="amount">Введіть потрібну вам суму цементу:</label>
+            <input type="text" name="amount" id="amount"><br><br>
+            <!-- Повідомлення про помилку, якщо воно є -->
+            {% if error_message_cement_mixer %}
+               <p id="error-cement-mixer" class="error-message" style="color: red;">{{ error_message_cement_mixer }}</p>
+            {% endif %}
+            <input type="submit" name="cement_mixer" value="Провести розрахунок" class="btn">
+         </form>
+         {% if cement_mixer_result %}
+         <div id="results">
+            <h2>Результати розрахунку:</h2>
+            <p>Буде використано компонентів: <b><span class="number">{{ cement_mixer_result['total_components_required'] }}</span></b></p>
+            <p>Буде вироблено ресурсу: <b><span class="number">{{ cement_mixer_result['cement_produced'] }}</span></b></p>
+            <p>Буде витрачено часу: <b><span class="number">{{ cement_mixer_result['total_production_time'] }}</span></b> ({{ cement_mixer_result['time_label'] }})</p>
+            <button onclick="window.location.href='/'" class="btn_restart">Скинути результат конвертації</button>
+         </div>
+         {% endif %}
+      </div>
+      <div class="container" id="materials_factory_section">
+         <h1>Конвертація ресурсів | Фабрика матеріалів</h1>
+         <img src="static/images/MaterialsFactoryIcon.png" alt="Game Image" class="game-image">
+         <p class="des">Фабрика матеріалів - це велика споруда, побудована гравцем, яка використовується для виготовлення будівельних матеріалів з використанням металобрухту.</p>
+         <form action="" method="post">
+            <label for="from_resource">Виберіть ресурс для розрахунку:</label>
+            <select name="from_resource" id="from_resource">
+               <option value="Будівельні матеріали">Будівельні матеріали</option>
+               <option value="Припаси обслуговування">Припаси обслуговування</option>
+            </select>
+            <br><br>
+            <label for="amount">Введіть потрібну вам суму ресурсу:</label>
+            <input type="text" name="amount" id="amount"><br><br>
+            <!-- Повідомлення про помилку, якщо воно є -->
+            {% if error_message_materials_factory %}
+               <p id="error-materials-factory" class="error-message" style="color: red;">{{ error_message_materials_factory }}</p>
+            {% endif %}
+            <input type="submit" name="materials_factory" value="Провести розрахунок" class="btn">
+         </form>
+         {% if materials_factory_result %}
+         <div id="results">
+            <h2>Результати розрахунку:</h2>
+            <p>Буде використано металобрухту: <span class="number">{{ materials_factory_result['metal_scraps'] }}</span></p>
+            <p>Буде вироблено ресурс: <span class="number">{{ materials_factory_result['produced_resource'] }}</span></p>
+            <p>Буде витрачено часу: <span class="number">{{ materials_factory_result['time_spent'] }} ({{ materials_factory_result['time_map'] }})</span></p>
+            <button onclick="window.location.href='/'" class="btn_restart">Скинути результат конвертації</button>
+         </div>
+         {% endif %}
+      </div>
+      <div class="container" id="forge">
+         <h1>Конвертація ресурсів | Кузня</h1>
+         <img src="static/images/MaterialsFactoryForgeIcon.png" alt="Game Image" class="game-image">
+         <p class="des">Унікальний завод з кування деталей спеціалізованої техніки, необхідних для збірки транспортних засобів. Потрібно Коксове вугілля або Бензин.</p>
+         <form action="" method="post">
+            <label for="from_resource">Виберіть ресурс для розрахунку:</label>
+            <select name="from_resource" id="from_resource">
+               <option value="Складальні матеріали 1">Складальні матеріали 1 тиру</option>
+               <option value="Складальні матеріали 2">Складальні матеріали 2 тиру</option>
+            </select>
+            <br><br>
+            <label for="amount">Введіть потрібну вам суму ресурсу:</label>
+            <input type="text" name="amount" id="amount"><br><br>
+            <!-- Повідомлення про помилку, якщо воно є -->
+            {% if error_message_forge %}
+               <p id="error-forge" class="error-message" style="color: red;">{{ error_message_forge }}</p>
+            {% endif %}
+            <input type="submit" name="forge" value="Провести розрахунок" class="btn">
+         </form>
+         {% if forge_result %}
+         <div id="results">
+            <h2>Результати розрахунку:</h2>
+            <p>Буде використано металобрухту: <span class="number">{{ forge_result['total_amount_of_scrap_metal'] }}</span></p>
+            <p>Буде використано {{ forge_result['name_res'] }}: <span class="number">{{ forge_result['total_amount_coking_coal'] }}</span></p>
+            <p>Буде вироблено ресурс: <span class="number">{{ forge_result['the_amount_of_assembly_materials'] }}</span></p>
+            <p>Буде витрачено часу: <span class="number">{{ forge_result['total_time_in_minutes'] }} ({{ forge_result['time_label'] }})</span></p>
+            <button onclick="window.location.href='/'" class="btn_restart">Скинути результат конвертації</button>
+         </div>
+         {% endif %}
+      </div>
+
+      <div class="container" id="processing_station_section">
+        <h1>Станція переробки | Конвертація ресурсів</h1>
+        <form action="" method="post">
+            <label for="from_resource"><b>Виберіть ресурс для розрахунку:</b></label>
+            <select name="from_resource" id="from_resource">
+               <option value="Металобрухт/Бімати">Металобрухт у Базові матеріали</option>
+               <option value="Металобрухт/Дизель">Металобрухт у Дизель</option>
+               <option value="Металобрухт/ВибуховіМатеріали">Металобрухт у Вибухові матеріали</option>
+               <option value="Компоненти/Рафіновані матеріали">Компоненты в Рафинированные материалы</option>
+            </select><br><br>
+
+            <label for="amount"><b>Введіть суму ресурсу:</b></label>
+            <input type="text" name="amount" id="amount"><br><br>
+
+
+            <!-- Повідомлення про помилку, якщо воно є -->
+            {% if error_message_processing_station %}
+               <p id="error-processing-station" class="error-message" style="color: red;">{{ error_message_processing_station }}</p>
+            {% endif %}
+
+            <input type="submit" name="processing_station" value="Провести розрахунок" class="btn">
+            </form>
+
+            {% if processing_station_result %}
+            <div id="results">
+                {{ processing_station_result | safe }}
+            </div>
+        {% endif %}
+    </div>
+      <footer>
+         <a href="https://discord.gg/kvp5zqC9qu" class="raz4">Посилання на Discord</a>
+      </footer>
+   </body>
+</html>
